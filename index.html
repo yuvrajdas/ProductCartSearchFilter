@@ -21,7 +21,7 @@
         <div class="row">
             <div class="col-md-2"><button class="btn btn-info mb-2 w-100" id="show">Show Data</button></div>
             <div class="col-md-10">
-                <input type="text" placeholder="Search Here...." class="form-control" onkeyup="searchFun()"
+                <input type="text" placeholder="Search Here...." class="form-control" onkeyup="betterFun()"
                     id="myInput">
             </div>
         </div>
@@ -87,6 +87,21 @@
                 }
             }
         };
+
+        function debouncing(callback, delay) {
+
+            let timer;
+            return function (...args) {
+                if (timer) clearInterval(timer);
+
+                timer = setTimeout(() => {
+                    callback();
+                }, delay);
+            }
+        }
+
+
+        const betterFun = debouncing(searchFun, 1000)
 
         let data = [
             {
