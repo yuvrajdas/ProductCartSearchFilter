@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search filter </title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+        integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
+        integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center text-success">Search filter using Debouncing</h2>
+        <div class="row">
+            <div class="col-md-2"><button class="btn btn-info mb-2 w-100" id="show">Show Data</button></div>
+            <div class="col-md-10">
+                <input type="text" placeholder="Search Here...." class="form-control" onkeyup="searchFun()"
+                    id="myInput">
+            </div>
+        </div>
+
+        <div class="row mt-5" id="Datas">
+
+        </div>
+    </div>
+
+
+
+
+    <script>
+
+        document.getElementById('show').addEventListener('click', async () => {
+
+            let output = "";
+            data.forEach((element) => {
+                output += `
+                         <div class="col-md-3" >
+                            <div class="card-deck">
+                                <div class="card">
+                                    <img class=""
+                                        src="${element.image}"
+                                        alt="Card image cap">
+                                    <div class="card-body">
+                                        <h5 class="card-title float-left">${element.productname}</h5>
+                                        <h5 class="float-right">Rs. ${element.price}</h5>
+                                         <h6 class="text-center mt-5">Rating ${element.rating} </h6>
+                                        <p class="card-text mt-5">${element.description}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>         
+                `;
+            })
+
+            document.getElementById('Datas').innerHTML = output;
+        })
+
+
+        const searchFun = () => {
+            let filter = document.getElementById('myInput').value.toUpperCase();
+
+
+            let cards = document.getElementsByClassName('card-body');
+
+            console.log(cards[0].children[0]);
+
+            for (var i = 0; i < cards.length; i++) {
+                var productName = cards[i].children[0];
+                // console.log(productName);
+                if (productName) {
+
+                    var tdval = productName.textContent || productName.innerHTML;
+
+                    if (tdval.toUpperCase().indexOf(filter) > -1) {
+                        cards[i].parentElement.style.display = "";
+                        // cards[i].style.display = "";
+                    } else {
+                        cards[i].parentElement.style.display = "none";
+                    }
+                }
+            }
+        };
+
+        let data = [
+            {
+                "productname": "iphone",
+
+                "price": 80000,
+
+                "description": "this is a iphone",
+
+                "image": "https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-13-pro-blue-select?wid=470&hei=556&fmt=png-alpha&.v=1645552346275",
+
+                "rating": 4.9
+            },
+
+            {
+                "productname": "poco",
+
+                "price": 14000,
+
+                "description": "this is a poco",
+
+                "image": "https://www.tradeinn.com/f/13877/138770436_3/xiaomi-pocophone-4-pro-6gb-128gb-6.6-smartphone.jpg",
+
+                "rating": 4.0
+            },
+
+            {
+                "productname": "one plus",
+
+                "price": 40000,
+
+                "description": "this is a one plus",
+
+                "image": "http://cdn.shopify.com/s/files/1/0593/9727/5805/products/Arcticsky_2080a_euna_1200x1200.png?v=1631607581",
+
+                "rating": 4.2
+            },
+
+            {
+                "productname": "samsung j6",
+
+                "price": 11000,
+
+                "description": "this is a samsung j6",
+
+                "image": "https://images.samsung.com/is/image/samsung/hk-en-galaxy-j6-j600-sm-j600gzkhtgy-featureblack-105543973?$PD_GALLERY_JPG$",
+
+                "rating": 3.5
+            }
+
+        ];
+    </script>
+</body>
+
+</html>
